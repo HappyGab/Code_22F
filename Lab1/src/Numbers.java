@@ -25,6 +25,7 @@ public class Numbers {
 	 */
 	public Numbers() {
 		// TODO Write code here to initialize a "default" array since this is the default constructor
+		numbers = new Float[1];
 	}
 
 	/**
@@ -33,6 +34,7 @@ public class Numbers {
 	 */
 	public Numbers(int size) {
 		// TODO Write code here to initialize the numbers array of max 'size'
+		numbers = new Float[size];
 	}
 	
 	/**
