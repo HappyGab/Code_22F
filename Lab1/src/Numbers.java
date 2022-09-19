@@ -213,7 +213,9 @@ public class Numbers {
 		
 		return res;
 	}
-
+/**
+ * Prints the contents of the array
+ */
 	@Override
 	public String toString() {
 
@@ -221,8 +223,11 @@ public class Numbers {
 		
 		for (int i = 0; i < numbers.length; i++ ) {
 			
-			System.out.println(numbers[i]);
+			if (numbers[i] != null) {
+				System.out.println(numbers[i]);
+			}
 		}
+		System.out.println("\n");
 		
 		return "";
 	}

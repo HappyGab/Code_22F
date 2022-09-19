@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 public class Lab1 {
 
 	/**
-	 * @param args
+	 * entry into the program
 	 */
 	public static void main(String[] args) {
 
@@ -134,16 +134,22 @@ public class Lab1 {
 					String s = keyboard.nextLine();
 				}
 				
+				boolean fileFound = false;
 				
 				try {
-					rF = new Scanner(new File(fileName));
-				} catch (FileNotFoundException e1) {
+					rF = new Scanner(new File("tfile.txt"));
+					fileFound = true;
+				}
+				catch (FileNotFoundException e1) {
 					System.out.println("Error: File not found");
 				}
 				
-				while (rF.hasNextFloat() == true) {
+				
+				if (fileFound == true) {
+					while (rF.hasNextFloat() == true) {
 					
-					num.addValue(keyboard, true, rF.nextFloat());
+						num.addValue(keyboard, true, rF.nextFloat());
+					}
 				}
 				
 				break;
