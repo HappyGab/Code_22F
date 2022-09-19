@@ -3,7 +3,18 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-		rec(1);
+		float[] arr = new float[5];
+		
+		
+		for (int i = 0; i<arr.length; i++) {
+			
+			System.out.println(arr[i]);
+		}
+		
+		float num = arr[0];
+		
+		
+		//rec(1);
 
 	}
 	
