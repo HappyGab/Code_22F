@@ -106,6 +106,7 @@ public class Lab3 {
 				
 				System.out.println("Exiting");
 				toExit = true;
+				keyboard.close();
 				break;
 
 			//steps the the user didnt input a valid value
