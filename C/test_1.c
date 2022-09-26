@@ -1,6 +1,7 @@
 #include<stdio.h>
 int main()
 {
-printf("\nA CST8234 First Program\n\n");
-return 0;
+    double x = 5.0 + 3/2;
+    printf("%d",x);
+    return 0;
 }

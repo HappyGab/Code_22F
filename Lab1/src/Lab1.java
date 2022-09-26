@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
   */
 public class Lab1 {
 
+	private static Scanner rF;
 	/**
 	 * entry into the program
 	 */
@@ -26,7 +27,7 @@ public class Lab1 {
 		Scanner keyboard = new Scanner(System.in);
 		
 		//file scanner and reader
-		Scanner rF = null;
+		//Scanner rF;
 		FileWriter wF; 
 
 		// looping variable
@@ -134,16 +135,7 @@ public class Lab1 {
 					String s = keyboard.nextLine();
 				}
 				
-				boolean fileFound = false;
-				
-				try {
-					rF = new Scanner(new File("tfile.txt"));
-					fileFound = true;
-				}
-				catch (FileNotFoundException e1) {
-					System.out.println("Error: File not found");
-				}
-				
+				boolean fileFound = readFile(fileName);
 				
 				if (fileFound == true) {
 					while (rF.hasNextFloat() == true) {
@@ -213,6 +205,20 @@ public class Lab1 {
 				+ "7: Read values from files\r\n"
 				+ "8: Save values to file\r\n"
 				+ "9: To exit\r\n");
+		
+	}
+	
+	public static boolean readFile(String fileName) {
+		
+		try {
+			rF = new Scanner(new File(fileName));
+			return true;
+		}
+		catch (FileNotFoundException e1) {
+			System.out.println("Error: File not found");
+		}
+		
+		return false;
 		
 	}
 }

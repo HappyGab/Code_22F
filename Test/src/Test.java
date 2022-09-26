@@ -3,6 +3,9 @@ public class Test {
 
 	public static void main(String[] args) {
 		
+		double x = 5.0 + 3/2;
+		System.out.println(x);
+		
 		float[] arr = new float[5];
 		
 		
