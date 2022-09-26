@@ -6,17 +6,8 @@ int main()
     printf("Enter a binary number: ");
     scanf("%d", &num);
 
-    int incr = 1;
-    int num2 = num;
     int dec = 0;
-
-    while(num2 > 10){
-
-        num2 = num2 / 10;
-        incr++;
-    }
-
-    num2 = num;
+    int num2 = num;
     int temp;
     int loopNum = 0;
 
@@ -41,7 +32,6 @@ int main()
                 dec = dec + toAdd;
             }
         }
-        incr--;
         loopNum++;
 
         num2 = num2 / 10;
