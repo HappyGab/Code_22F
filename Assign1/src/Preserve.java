@@ -44,6 +44,8 @@ public class Preserve extends FoodItem {
 			playerIn = keyboard.nextLine();
 			setItemName(playerIn);
 
+			s = keyboard.nextLine();
+			
 			System.out.print("Enter the quantity for the item: ");
 			playerInNum = keyboard.nextInt();
 			if (playerInNum >= 0) {

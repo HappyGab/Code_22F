@@ -56,6 +56,8 @@ public class Inventory {
 					break;
 				}
 			}
+			
+			num++;
 
 			//user inputs item code
 			System.out.print("Enter the code for the item: ");
