@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;	
 
 /**
  * CET - CS Academic Level 3
@@ -19,7 +20,8 @@ public class Inventory {
 	/**
 	 * inventory array
 	 */
-	private FoodItem[] inventory = new FoodItem[20];
+	
+	private ArrayList<FoodItem> inventory = new ArrayList<FoodItem>();
 
 	/**
 	 * method to add items to the inventory array
@@ -44,11 +46,11 @@ public class Inventory {
 			return;
 		}
 
-		//checks of the users had a valid input
+		//checks if the users had a valid input
 		if (playerIn.equals("f") || playerIn.equals("v") || playerIn.equals("p")) {
 
 			int num = 19;
-			while (inventory[num] == null) {
+			while (inventory.get(num) == null) {
 
 				num = num - 1;
 
@@ -91,7 +93,7 @@ public class Inventory {
 				boolean addedF = tempFruit.addItem(keyboard, playerInNum);
 
 				if (addedF == true) {
-					inventory[num] = tempFruit;
+					inventory.add(tempFruit);
 				}
 				else {
 					System.out.println("Could not add the Item");
@@ -106,7 +108,7 @@ public class Inventory {
 				boolean addedV = tempVeg.addItem(keyboard, playerInNum);
 
 				if (addedV == true) {
-					inventory[num] = tempVeg;
+					inventory.add(tempVeg);
 				}
 				else {
 					System.out.println("Could not add the Item");
@@ -121,7 +123,7 @@ public class Inventory {
 				boolean addedP = tempPre.addItem(keyboard, playerInNum);
 
 				if (addedP == true) {
-					inventory[num] = tempPre;
+					inventory.add(tempPre);
 				}
 				else {
 					System.out.println("Could not add the Item");
@@ -144,10 +146,10 @@ public class Inventory {
 	 */
 	public int alreadyExists(int num) {
 
-		for (int i = 0; i < inventory.length; i++) {
+		for (int i = 0; i < inventory.size(); i++) {
 
-			if (inventory[i] != null) {
-				if (inventory[i].getItemCode() == num) {
+			if (inventory.get(i) != null) {
+				if (inventory.get(i).getItemCode() == num) {
 					return i;
 				}
 			}
@@ -211,7 +213,7 @@ public class Inventory {
 				return false;
 			}
 
-			boolean bought = inventory[index].updateItem(playerIn);
+			boolean bought = inventory.get(index).updateItem(playerIn);
 
 			if (bought == false) {
 				System.out.println("Error...could not buy item");
@@ -241,7 +243,7 @@ public class Inventory {
 			}
 
 			playerIn = playerIn * -1;
-			boolean sold = inventory[index].updateItem(playerIn);
+			boolean sold = inventory.get(index).updateItem(playerIn);
 
 			if (sold == false) {
 				System.out.println("Error...could not buy item");
@@ -260,11 +262,11 @@ public class Inventory {
 
 		System.out.println("Inventory:");
 
-		for (int i = 0; i < inventory.length; i++) {
+		for (int i = 0; i < inventory.size(); i++) {
 
-			if (inventory[i] != null) {
+			if (inventory.get(i) != null) {
 
-				inventory[i].toString();
+				inventory.get(i).toString();
 			}
 		}
 		return "";
