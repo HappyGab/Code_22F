@@ -18,9 +18,8 @@ import java.util.ArrayList;
 public class Inventory {
 
 	/**
-	 * inventory array
+	 * inventory ArrayList
 	 */
-	
 	private ArrayList<FoodItem> inventory = new ArrayList<FoodItem>();
 
 	/**
@@ -30,112 +29,144 @@ public class Inventory {
 	 */
 	public void addItem(Scanner keyboard) {
 
-		String playerIn = "";
-		int playerInNum = 0;
-
-		System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)? ");
-		try {
-			//user's input
-			playerIn = keyboard.next();
-		}
-		catch ( java.util.InputMismatchException e) {
-
-			//flushes the scanner & error message
-			String s = keyboard.nextLine();
-			System.out.println("Invalid Input");
-			return;
-		}
-
-		//checks if the users had a valid input
-		if (playerIn.equals("f") || playerIn.equals("v") || playerIn.equals("p")) {
-
-			int num = 19;
-			while (inventory.get(num) == null) {
-
-				num = num - 1;
-
-				if (num <= 0) {
-					break;
-				}
-			}
-			
-			num++;
-
-			//user inputs item code
-			System.out.print("Enter the code for the item: ");
+		String userInput = "";
+		int userInputNum = 0;
+		
+		boolean validInput = false;
+		
+		//asks for the type of produce until a valid input
+		while(validInput == false) {
+			System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)? ");
 			try {
 				//user's input
-				playerInNum = keyboard.nextInt();
+				userInput = keyboard.next();
+				if (userInput.equals("f") || userInput.equals("v") || userInput.equals("p")) {
+					validInput = true;
+				}
+				else {
+					System.out.println("Invalid Input");
+				}
 			}
-			catch ( java.util.InputMismatchException e) {
-
+			catch (java.util.InputMismatchException e) {
+	
 				//flushes the scanner & error message
 				String s = keyboard.nextLine();
 				System.out.println("Invalid Input");
-				return;
-			}
-
-			//checks if the code already exists
-			int iCode = alreadyExists(playerInNum);
-
-			if (iCode != -1) {
-
-				System.out.println("Item code already exists");
-				return;
-			}
-
-			switch (playerIn) {
-
-			//steps to add a fruit
-			case "f" :
-
-				Fruit tempFruit = new Fruit();
-				boolean addedF = tempFruit.addItem(keyboard, playerInNum);
-
-				if (addedF == true) {
-					inventory.add(tempFruit);
-				}
-				else {
-					System.out.println("Could not add the Item");
-					return;
-				}
-				break;
-
-				//steps to add a vegetable
-			case "v" :
-
-				Vegetable tempVeg = new Vegetable();
-				boolean addedV = tempVeg.addItem(keyboard, playerInNum);
-
-				if (addedV == true) {
-					inventory.add(tempVeg);
-				}
-				else {
-					System.out.println("Could not add the Item");
-					return;
-				}
-				break;
-
-				//steps to add a preserve
-			case "p" :
-
-				Preserve tempPre = new Preserve();
-				boolean addedP = tempPre.addItem(keyboard, playerInNum);
-
-				if (addedP == true) {
-					inventory.add(tempPre);
-				}
-				else {
-					System.out.println("Could not add the Item");
-					return;
-				}
-				break;
 			}
 		}
-		else {
-
-			System.out.println("Invalid Entry");
+		
+		validInput = false;
+		
+		//checks if the users had a valid input		
+		while (validInput == false) {
+			if (userInput.equals("f") || userInput.equals("v") || userInput.equals("p")) {
+	
+	
+				//user inputs item code
+				while (validInput == false) {
+					System.out.print("Enter the code for the item: ");
+					try {
+						//user's input
+						userInputNum = keyboard.nextInt();
+						validInput = true;
+					}
+					catch ( java.util.InputMismatchException e) {
+		
+						//flushes the scanner & error message
+						String s = keyboard.nextLine();
+						System.out.println("Invalid Input");
+					}
+				}
+				
+				validInput = false;				
+	
+				//checks if the code already exists
+				int iCode = alreadyExists(userInputNum);
+				if (iCode != -1) {
+	
+					System.out.println("Item code already exists\n");
+					return;
+				}
+				
+				int itemIndex = 0;
+				
+				//steps to find where the new item should go in the arraylist to keep it ordered
+				if (inventory.size() == 1) {
+					
+					if (inventory.get(0).getItemCode() < userInputNum) {
+						itemIndex = 1;
+					}
+				}
+				else if(inventory.size() > 1) {
+					
+					itemIndex = binarySearch(userInputNum, 0, inventory.size()-1);
+					
+					try {
+						if (inventory.get(itemIndex).getItemCode() < userInputNum) {
+							itemIndex = itemIndex + 1;
+						}
+					}
+					catch (Exception e) {
+					}
+					
+				}
+	 
+				switch (userInput) {
+	
+				//steps to add a fruit
+				case "f" :
+	
+					Fruit tempFruit = new Fruit();
+					boolean addedF = tempFruit.addItem(keyboard, userInputNum);
+	
+					if (addedF == true) {
+						inventory.add(itemIndex, tempFruit);
+					}
+					else {
+						System.out.println("Could not add the Item");
+						return;
+					}
+					break;
+	
+					//steps to add a vegetable
+				case "v" :
+	
+					Vegetable tempVeg = new Vegetable();
+					boolean addedV = tempVeg.addItem(keyboard, userInputNum);
+	
+					if (addedV == true) {
+						inventory.add(itemIndex, tempVeg);
+					}
+					else {
+						System.out.println("Could not add the Item");
+						return;
+					}
+					break;
+	
+					//steps to add a preserve
+				case "p" :
+	
+					Preserve tempPre = new Preserve();
+					boolean addedP = tempPre.addItem(keyboard, userInputNum);
+	
+					if (addedP == true) {
+						inventory.add(itemIndex, tempPre);
+					}
+					else {
+						System.out.println("Could not add the Item");
+						return;
+					}
+					break;
+				}
+			}
+			//in case of an invalid user input
+			else {
+	
+				System.out.println("Invalid Entry");
+			}
+			validInput = true;
 		}
+
 	}
 
 	/**
@@ -146,13 +177,19 @@ public class Inventory {
 	 */
 	public int alreadyExists(int num) {
 
-		for (int i = 0; i < inventory.size(); i++) {
-
-			if (inventory.get(i) != null) {
-				if (inventory.get(i).getItemCode() == num) {
-					return i;
-				}
+		//check for the index of the closest or exact code in the array
+		int itemIndex = binarySearch(num, 0, inventory.size()-1);
+		
+		//checks if the item code of the index is equal to the given code
+		try {
+			if(inventory.get(itemIndex).getItemCode() == num) {
+				
+				return itemIndex;
 			}
+		}
+		catch (Exception e) {
+			
+			return -1;
 		}
 
 		return -1;
@@ -167,24 +204,31 @@ public class Inventory {
 	 */
 	public boolean updateQuantity(boolean buySell, Scanner keyboard) {
 
-		int playerIn = 0;
+		int userInput = 0;
+		
+		boolean validInput = false;
 
 		//gets the wanted item code from the user
+		
+		while (validInput == false) {
 		System.out.println("Enter the code for the item: ");
-		try {
-			//user's input
-			playerIn = keyboard.nextInt();
+			try {
+				//user's input
+				userInput = keyboard.nextInt();
+				validInput = true;
+			}
+			catch ( java.util.InputMismatchException e) {
+	
+				//flushes the scanner & error message
+				String s = keyboard.nextLine();
+				System.out.println("Invalid Input");
+			}
 		}
-		catch ( java.util.InputMismatchException e) {
-
-			//flushes the scanner & error message
-			String s = keyboard.nextLine();
-			System.out.println("Invalid Input");
-			return false;
-		}
+		
+		validInput = false;
 
 		//checks if the item exists
-		int index = alreadyExists(playerIn);
+		int index = alreadyExists(userInput);
 
 		if (index == -1) {
 
@@ -195,25 +239,30 @@ public class Inventory {
 		//if we buy the item
 		if (buySell == true) {
 
+			while (validInput == false) {
 			System.out.println("Enter valid quantity to buy: ");
-			try {
-				//user's input
-				playerIn = keyboard.nextInt();
+				try {
+					//user's input
+					userInput = keyboard.nextInt();
+					validInput = true;
+				}
+				catch ( java.util.InputMismatchException e) {
+	
+					//flushes the scanner & error message
+					String s = keyboard.nextLine();
+					System.out.println("Invalid Input");
+				}
 			}
-			catch ( java.util.InputMismatchException e) {
+			
+			validInput = false;
 
-				//flushes the scanner & error message
-				String s = keyboard.nextLine();
-				System.out.println("Invalid Input");
-				return false;
-			}
-
-			if (playerIn <= 0) {
+			//if the item could not be bought
+			if (userInput <= 0) {
 				System.out.println("Error...could not buy item");
 				return false;
 			}
 
-			boolean bought = inventory.get(index).updateItem(playerIn);
+			boolean bought = inventory.get(index).updateItem(userInput);
 
 			if (bought == false) {
 				System.out.println("Error...could not buy item");
@@ -224,26 +273,31 @@ public class Inventory {
 		//if we sell the item
 		else {
 
-			System.out.println("Enter valid quantity to sell: ");
-			try {
-				//user's input
-				playerIn = keyboard.nextInt();
+			while (validInput == false) {
+				System.out.println("Enter valid quantity to sell: ");
+				try {
+					//user's input
+					userInput = keyboard.nextInt();
+					validInput = true;
+				}
+				catch ( java.util.InputMismatchException e) {
+	
+					//flushes the scanner & error message
+					String s = keyboard.nextLine();
+					System.out.println("Invalid Input");
+				}
 			}
-			catch ( java.util.InputMismatchException e) {
+			
+			validInput = false;
 
-				//flushes the scanner & error message
-				String s = keyboard.nextLine();
-				System.out.println("Invalid Input");
-				return false;
-			}
-
-			if (playerIn <= 0) {
+			//if the item could not be sold
+			if (userInput <= 0) {
 				System.out.println("Error...could not sell item");
 				return false;
 			}
 
-			playerIn = playerIn * -1;
-			boolean sold = inventory.get(index).updateItem(playerIn);
+			userInput = userInput * -1;
+			boolean sold = inventory.get(index).updateItem(userInput);
 
 			if (sold == false) {
 				System.out.println("Error...could not buy item");
@@ -262,6 +316,7 @@ public class Inventory {
 
 		System.out.println("Inventory:");
 
+		//calls the toString method of all the arraylist elements
 		for (int i = 0; i < inventory.size(); i++) {
 
 			if (inventory.get(i) != null) {
@@ -270,6 +325,88 @@ public class Inventory {
 			}
 		}
 		return "";
+	}
+	
+	/**
+	 * recursive method to find the index of a given item code in the arraylist
+	 * 
+	 * @param num : code to find the index of
+	 * @param min : the lower bound of the search area of the arraylist
+	 * @param max : the upper bound of the search area of the arraylist
+	 * @return : the index of num in the arraylist
+	 */
+	public int binarySearch(int num, int min, int max) {
+	
+		int middle = (max + min) / 2;
+		
+		try {
+			
+			//recursive stuff happens here and returns the index of num
+			if (inventory.get(middle).getItemCode() == num) {
+				
+				return middle;
+			}
+			else if(min >= max) {
+				
+				return middle;
+			} 
+			else if(inventory.get(middle).getItemCode() > num) {
+				
+				return binarySearch(num, min, middle - 1);
+			}
+			else {
+				
+				return binarySearch(num, middle + 1, max);
+			}
+		}
+		
+		//catch exceptions return -1 if num is not in the arraylist
+		catch(Exception e) {
+			return -1;
+		}
+		catch(StackOverflowError e2) {
+			return -1;
+		}
+				
+	}
+	
+	/**
+	 * method to search for a specific item using its code
+	 * 
+	 * @param keyboard : keyboard input reader
+	 */
+	public void searchForItem(Scanner keyboard) {
+		
+		boolean validInput = false;
+		int userInputNum = 0;
+		
+		//user inputs item code
+		while (validInput == false) {
+			System.out.print("Enter the code for the item: ");
+			try {
+				//user's input
+				userInputNum = keyboard.nextInt();
+				validInput = true;
+			}
+			catch ( java.util.InputMismatchException e) {
+
+				//flushes the scanner & error message
+				String s = keyboard.nextLine();
+				System.out.println("Invalid Input");
+			}
+		}
+		
+		//checks if the item exists
+		int index = alreadyExists(userInputNum);
+		
+		//if it doesnt exist
+		if(index == -1) {
+			System.out.println("Item Code not found in the Inventory\n");
+		}
+		//if it does exist
+		else {
+			inventory.get(index).toString();
+		}
 	}
 
 }
