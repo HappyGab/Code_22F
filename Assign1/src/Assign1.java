@@ -54,33 +54,51 @@ public class Assign1 {
 				Iv.addItem(keyboard);				
 				break;
 
-				//steps to display the inventory
+			//steps to display the inventory
 			case 2:
 
 				Iv.toString();
 				break;
 
-				//steps to buy items
+			//steps to buy items
 			case 3:
 
 				Iv.updateQuantity(true, keyboard);
 				break;
 
-				//steps to sell items
+			//steps to sell items
 			case 4:
 
 				Iv.updateQuantity(false, keyboard);
 				break;
-
-				//steps to exit the program	
+				
+			//steps to search for an item
 			case 5:
+
+				Iv.searchForItem(keyboard);
+				break;
+				
+			//steps to save to a file
+			case 6:
+
+				System.out.println("Function does not exist yet\n");
+				break;
+				
+			//steps to read from a file
+			case 7:
+
+				System.out.println("Function does not exist yet\n");
+				break;
+				
+			//steps to exit the program	
+			case 8:
 
 				System.out.println("Exiting");
 				toExit = true;
 				keyboard.close();
 				break;
 
-				//steps the the user didn't input a valid value
+			//steps the the user didn't input a valid value
 			default:
 
 				System.out.println("Invalid input");
@@ -100,7 +118,10 @@ public class Assign1 {
 				+ "2: Display Current Inventory\r\n"
 				+ "3: Buy Item(s)\r\n"
 				+ "4: Sell Item(s)\r\n"
-				+ "5: To Exit");
+				+ "5: Search for Item(s)\r\n"
+				+ "6: Save Inventory from File\r\n"
+				+ "7: Read Inventory from File\r\n"
+				+ "8: To Exit");
 	}
 
 }

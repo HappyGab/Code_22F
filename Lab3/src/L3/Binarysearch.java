@@ -57,6 +57,9 @@ public class Binarysearch {
 				
 				return middle;
 			}
+			else if(min == max) {
+				return middle;
+			}
 			else if(numList.get(middle) > num) {
 				
 				return binarySearch(num, min, middle - 1);

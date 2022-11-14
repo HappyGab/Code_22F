@@ -30,66 +30,108 @@ public class Preserve extends FoodItem {
 	@Override
 	public boolean addItem(Scanner keyboard, int iCode) {
 
-		String playerIn = "";
-		int playerInNum = 0;
-		float playerInF = 0;
+		String userInput = "";
+		int userInputNum = 0;
+		float userInputF = 0;
 
 		setItemCode(iCode);
 
+		boolean validInput = false;
+ 
 		String s = "";
-
+		
+		s = keyboard.nextLine();
+		
 		try {
 			//user's input
 			System.out.print("Enter the name for the item: ");
-			playerIn = keyboard.nextLine();
-			setItemName(playerIn);
-
-			s = keyboard.nextLine();
+			userInput = keyboard.nextLine();
 			
-			System.out.print("Enter the quantity for the item: ");
-			playerInNum = keyboard.nextInt();
-			if (playerInNum >= 0) {
-				setItemQuantityInStock(playerInNum);
-			}
-			else {
-				System.out.println("Cannot add a negative value of items");
-				return false;
+			setItemName(userInput);			
+
+			while (validInput == false) {
+				try {
+					System.out.print("Enter the quantity for the item: ");
+					userInputNum = keyboard.nextInt();
+					if (userInputNum >= 0) {
+						setItemQuantityInStock(userInputNum);
+						validInput = true;
+					}
+					else {
+						System.out.println("Cannot add a negative value of items");
+
+					}
+				}
+				catch ( java.util.InputMismatchException e) {
+					System.out.println("Invalid Input");
+					s = keyboard.nextLine();
+				}
 			}
 
 			s = keyboard.nextLine();
+			validInput = false;
 
-			System.out.print("Enter the cost of the item: ");
-			playerInF = keyboard.nextFloat();
-			if (playerInF >= 0) {
-				setItemCost(playerInF);
-			}
-			else {
-				System.out.println("Cannot add a negative value of items");
-				return false;
-			}
+			while (validInput == false) {
+				try {
+					System.out.print("Enter the cost of the item: ");
+					userInputF = keyboard.nextFloat();
+					if (userInputF >= 0) {
+						setItemCost(userInputF);
+						validInput = true;
+					}
+					else {
+						System.out.println("Cannot add a negative value of items");
 
-			s = keyboard.nextLine();
-
-			System.out.print("Enter the sales price of the item: ");
-			playerInF = keyboard.nextFloat();
-			if (playerInF >= 0) {
-				setItemSalePrice(playerInF);
-			}
-			else {
-				System.out.println("Cannot add a negative value of items");
-				return false;
+					}
+				}
+				catch ( java.util.InputMismatchException e) {
+					System.out.println("Invalid Input");
+					s = keyboard.nextLine();
+				}
 			}
 
 			s = keyboard.nextLine();
+			validInput = false;
 
-			System.out.print("Enter the size of the jar in millilitres: ");
-			playerInF = keyboard.nextFloat();
-			if (playerInF >= 0) {
-				setItemJarSize(playerInF);
+			while (validInput == false) {
+				try {
+					System.out.print("Enter the sales price of the item: ");
+					userInputF = keyboard.nextFloat();
+					if (userInputF >= 0) {
+						setItemSalePrice(userInputF);
+						validInput = true;
+					}
+					else {
+						System.out.println("Cannot add a negative value of items");
+
+					}
+				}
+				catch ( java.util.InputMismatchException e) {
+					System.out.println("Invalid Input");
+					s = keyboard.nextLine();
+				}
 			}
-			else {
-				System.out.println("Cannot add a negative value of items");
-				return false;
+
+			s = keyboard.nextLine();
+			validInput = false;
+
+			while (validInput == false) {
+				try {
+					System.out.print("Enter the size of the jar in millilitres: ");
+					userInputF = keyboard.nextFloat();
+					if (userInputF >= 0) {
+						setItemJarSize(userInputF);
+						validInput = true;
+					}
+					else {
+						System.out.println("Cannot add a negative value of items");
+
+					}
+				}
+				catch ( java.util.InputMismatchException e) {
+					System.out.println("Invalid Input");
+					s = keyboard.nextLine();
+				}
 			}
 
 			System.out.print("\n");
