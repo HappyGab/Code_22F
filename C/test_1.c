@@ -1,7 +1,9 @@
-#include<stdio.h>
+#include <stdio.h>
 int main()
 {
-    double x = 5.0 + 3/2;
-    printf("%d",x);
+    char name[20];
+    printf("Enter name: ");
+    scanf("%s", name);
+    printf("Your name is %s.", name);
     return 0;
 }
